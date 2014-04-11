@@ -1,0 +1,30 @@
+---
+galaxy_info:
+  author: Wojciech Pietrzak
+  description: 
+  license: license (MIT)
+  min_ansible_version: 1.5
+  - name: Ubuntu
+    versions:
+    - all
+    - lucid
+    - maverick
+    - natty
+    - oneiric
+    - precise
+    - quantal
+    - raring
+    - saucy
+    - trusty
+  - name: Debian
+    versions:
+    - all
+    - etch
+    - lenny
+    - squeeze
+    - wheezy
+  categories:
+  - development
+  - system
+  - web
+dependencies: []
