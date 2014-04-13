@@ -1,2 +1,50 @@
 ---
-# tasks file for rbenv
+- name: install required libs
+  sudo: True
+  apt: name={{ item }} state=installed update-cache=yes
+  with_items:
+    - autoconf
+    - automake
+    - bison
+    - build-essential
+    - curl
+    - exuberant-ctags
+    - git-core
+    - libreadline6
+    - libreadline6-dev
+    - libreadline-dev
+    - libsqlite3-0
+    - libsqlite3-dev
+    - libssl-dev
+    - libyaml-dev
+    - libc6-dev
+    - libncurses5-dev
+    - libtool
+    - libxml2-dev
+    - libxslt1-dev
+    - openssl
+    - sqlite3
+    - subversion
+    - zlib1g
+    - zlib1g-dev
+
+- name: install rbenv
+  git: repo=git://github.com/sstephenson/rbenv.git dest=~/.rbenv
+
+- name: setup rbenv environment
+  lineinfile: dest=~/.bashrc line="eval \"$(rbenv init -)\"" insertbefore=BOF
+
+- name: setup rbenv executable
+  lineinfile: dest=~/.bashrc line="export PATH=\"$HOME/.rbenv/bin:$PATH\"" insertbefore=BOF
+
+- name: creates the plugins directory
+  file: path=~/.rbenv/plugins/ mode=0755 state=directory
+
+- name: installs ruby-build
+  git: repo=git://github.com/sstephenson/ruby-build.git dest=~/.rbenv/plugins/ruby-build
+
+- name: install ruby
+  shell: rbenv install 2.1.1
+
+- name: setup shell ruby version
+  shell rbenv shell 2.1.1
